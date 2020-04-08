@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "surgeryregister"
+    }
+  },
+  "defaultProject": "surgeryregister",
+  "cli": {
+    "analytics": "ec3e505c-ca5a-4c13-b854-cbe55ea2a842"
+  }
 }

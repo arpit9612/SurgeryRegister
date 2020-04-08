@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+$colour-border:#a9abad;
+$primary-font-colour: #626262;
+.form-sub-group
+{
+
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: $colour-border;
+  padding-left:15px;
+  padding-right:15px;
+}
