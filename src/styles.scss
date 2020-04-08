@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 $colour-border:#a9abad;
 $primary-font-colour: #626262;
+
 .form-sub-group
 {
 
@@ -9,4 +11,14 @@ $primary-font-colour: #626262;
   border-color: $colour-border;
   padding-left:15px;
   padding-right:15px;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+  
+.example-radio-button {
+    margin: 5px;
 }
