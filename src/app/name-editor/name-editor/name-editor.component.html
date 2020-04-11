@@ -1,80 +1,105 @@
-  
-<fieldset class="form-sub-group" >
-                
-    <legend class="legend" style="text-align: center; font-size: large; font-weight: bold; font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Surgery Details</legend>
-
-    <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start center">
-        <mat-form-field>
-                <input  type="text" placeholder="Tag Number"  matInput>                        
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field>
-                <input  type="date" placeholder="Surgery Date"  matInput>                        
-        </mat-form-field>
-    </div>   
-    <label style="font-size: large;" id="example-radio-group-label">Pick Surgery Type</label>
-        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="favoriteSeason">
-                <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
-                {{season}}
-                </mat-radio-button>
-                <mat-form-field>
-                        <input type="text" matInput placeholder="If other specify.">
-                </mat-form-field>
-        </mat-radio-group>
-
-        <mat-form-field>
-                <mat-label>Surgeon</mat-label>
-                <mat-select>
-                        <mat-option *ngFor="let surgeon of surgeons" [value]="surgeon.value">
-                        {{surgeon.viewValue}}
-                        </mat-option>
-                </mat-select>
-        </mat-form-field>
-        <div>
-                <label style="font-size: large;" id="site-group-label">Surgery Site</label>
-        </div>
+<form [formGroup]="SurgeryForm" (ngSubmit)="Submit(SurgeryForm)">
         
-        <div>
+        <fieldset class="form-group">
                 
-                <mat-radio-group area-labelledby="site-group-label">
-                        <mat-radio-button class="example-radio-button" value="1">ABC Center</mat-radio-button>
-                        <mat-radio-button class="example-radio-button" value="2">Main Hospital</mat-radio-button>
-                </mat-radio-group>
-        </div>
-        <br>
-        <div>
-                <label style="font-size: large;">Total minutes in Anesthesia </label>
-                <div>
-                        <mat-form-field>
-                                <input type="text" placeholder="Your Answer" matInput>
-                        </mat-form-field>
+                <legend class="legend">Surgery Register</legend>
+                <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center center">
+                        <fieldset class="form-sub-group">
+                            <legend class="legend">Animal Details</legend>
+                            <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start end">
+                                    <mat-form-field>
+                                            <input  type="text" placeholder="Tag Number"  formControlName="tagnumber"  matInput>                        
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                            <input  type="number" placeholder="Emergency Number"  formControlName="emergencynumber"  matInput>                        
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                            <input  type="text" placeholder="Animal Type"  formControlName="animaltype" matInput>                        
+                                    </mat-form-field>
+                            </div>
+                        </fieldset>
+            
+                        <fieldset class="form-sub-group">
+                                    <legend class="legend">Surgery Details</legend>
+                                    <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center center">
+                                            <mat-form-field>
+                                                    <mat-label>Surgery Date</mat-label>
+                                                    <input matInput [matDatepicker]="picker"  formControlName="surgerydate">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field>
+                                                    <mat-label>Surgeon</mat-label>
+                                                    <mat-select  formControlName="surgeon">
+                                                            <mat-option *ngFor="let surgeon of surgeons" [value]="surgeon.id" >
+                                                            {{surgeon.viewValue}}
+                                                            </mat-option>
+                                                    </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field>
+                                                    <mat-label>Surgery Site</mat-label>
+                                                    <mat-select  ngModel formControlName="surgerysite">
+                                                            <mat-option *ngFor="let site of sites" [value]="site.id" >
+                                                            {{site.viewValue}}
+                                                            </mat-option>
+                                                    </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field>
+                                                    <input  type="number" placeholder="Mins In Anesthesia"  formControlName="anesthesia" matInput>
+                                            </mat-form-field>
+            
+                                    </div>
+                        </fieldset>
                 </div>
-        </div>
-
-        <div>
-                <label style="font-size: large;" >Antibiotics Given</label>
-                <div>
-                        <mat-radio-button class="example-radio-button" value="1">Yes</mat-radio-button>
+                <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center center">
+                    <fieldset class="form-sub-group">
+                            <legend class="legend">Surgery Type</legend>
+                            <mat-chip-list  aria-label="Surgery selection">
+                                    <mat-chip *ngFor="let type of types" [value]="type" selectable formControlName = "stype" style="font-family: sans-serif;">
+                                    {{type}}        
+                                    </mat-chip>
+                            </mat-chip-list>
+                            
+                    </fieldset>
+            
+            
+                    <fieldset class="form-sub-group">
+                                <legend class="legend">Other Details</legend>
+                                <div fxLayout="row wrap" fxLayoutGap="100px" fxLayoutAlign="center center">
+                                    <mat-form-field>
+                                            <mat-label>Date of Death</mat-label>
+                                            <input matInput [matDatepicker]="picker2"  formControlName="deathdate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+            
+                                    <mat-form-field>
+                                            <input  type="text" placeholder="Death Comment"  formControlName="deathcomment" matInput>                        
+                                    </mat-form-field>
+            
+                                    <mat-form-field>
+                                            <mat-label>Antibiotics Given?</mat-label>
+                                            <mat-select  formControlName="antibiotics">
+                                                    <mat-option *ngFor="let drug of drugs" [value]="drug.id">
+                                                    {{drug.viewValue}}
+                                                    </mat-option>
+                                            </mat-select>
+                                    </mat-form-field>
+            
+                                    <mat-form-field>
+                                            <input  type="text" placeholder="comment"  formControlName="comment" matInput>
+                                    </mat-form-field>
+                                    
+            
+                                </div>
+                    </fieldset>
                 </div>
-        </div>
-        <br>
-        <div>
-                <label style="font-size: large;" >Died</label> 
-                <div>
-                        <mat-form-field>
-                                <input type="date" matInput placeholder="date">
-                        </mat-form-field>
+                <br>
+                <br>
+                <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center center"> 
+                   <input type="submit" value="Submit" class="mat-button">
+                    
+                    <button style="margin-left:120px ;" class="mat-button" mat-button>Reset</button>
                 </div>
-        </div>
-        <br>
-        <div>
-                <label style="font-size: large;" >Comment</label> 
-                <div>
-                        <mat-form-field>
-                                <input type="text" matInput placeholder="Your Answer">
-                        </mat-form-field>
-                </div>
-        </div>
-
-</fieldset>
+            </fieldset>
+</form>  
