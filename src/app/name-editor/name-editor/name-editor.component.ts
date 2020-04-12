@@ -1,9 +1,8 @@
 import { Component, OnInit,Input} from '@angular/core';
 import { FormGroup ,FormBuilder ,Validators,FormControl, NgForm} from "@angular/forms";
-import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
-import { strict } from 'assert';
 import { NgForOf } from '@angular/common';
+import { DropdownService } from "../../dropdown.service";
 interface surgeon {
   id: string;
   viewValue: string;
@@ -26,9 +25,9 @@ interface antibiotic{
   styleUrls: ['./name-editor.component.scss']
 })
 export class NameEditorComponent implements OnInit{
-  
+  selectable = true;
  
-  constructor(private fb : FormBuilder){  }
+  constructor(private fb : FormBuilder , private _dropdownservice : DropdownService){  }
 
   SurgeryForm = this.fb.group({
     tagnumber :[''],
@@ -70,14 +69,11 @@ export class NameEditorComponent implements OnInit{
     
   }
 
-  Type(value)
-  {
-    console.log(value);
-  }
-
   Submit(SurgeryForm:any)
   {
-      console.log(SurgeryForm.value);
+    this._dropdownservice.surgeryregister(this.SurgeryForm.value).subscribe(
+      response => console.log('Success!',response)
+    );
 
   }
 

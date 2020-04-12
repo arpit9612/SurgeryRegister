@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule  } from "./material.module";
-
+import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NameEditorModule } from './name-editor/name-editor/name-editor.module';
@@ -21,7 +21,8 @@ import { NameEditorModule } from './name-editor/name-editor/name-editor.module';
     ReactiveFormsModule,
     MaterialModule,
     NameEditorModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
     
   ],
  

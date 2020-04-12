@@ -53,12 +53,13 @@
                 </div>
                 <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center center">
                     <fieldset class="form-sub-group">
-                            <legend class="legend">Surgery Type</legend>
-                            <mat-chip-list  aria-label="Surgery selection">
-                                    <mat-chip *ngFor="let type of types" [value]="type" selectable formControlName = "stype" style="font-family: sans-serif;">
-                                    {{type}}        
-                                    </mat-chip>
-                            </mat-chip-list>
+                        <legend class="legend">Surgery Type</legend>
+                            
+                        <mat-chip-list #typeList aria-label="Surgery selection">
+                                <mat-chip *ngFor="let type of types" [value]="type"   style="font-family: sans-serif;">
+                                {{type}}        
+                                </mat-chip>
+                        </mat-chip-list>
                             
                     </fieldset>
             

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NameEditorComponent } from '../name-editor/name-editor.component';
 import {MatInputModule} from '@angular/material/input';
 import { MaterialModule } from 'src/app/material.module';
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 
 @NgModule({
     declarations: [        
@@ -11,7 +12,8 @@ import { MaterialModule } from 'src/app/material.module';
     ],
     imports: [
         CommonModule,
-        MaterialModule
+        MaterialModule,
+        HttpClientModule
               
     ],
     exports: [
