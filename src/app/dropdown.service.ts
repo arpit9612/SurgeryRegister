@@ -6,11 +6,24 @@ import { HttpClient } from "@angular/common/http";
 export class DropdownService {
 
 
-  _url = "http://localhost:3000/register";
+  url = "http://localhost:3000/";
   constructor( private http : HttpClient) { }
 
-  surgeryregister(surgerydata)
+
+
+  public getSurgerySite()
   {
-    return this.http.post<any>(this._url , surgerydata);
+    return this.http.get<any>(this.url + "Dropdown/SurgerySite" ); 
   }
+
+  public getSurgeon()
+  {
+    return this.http.get<any>(this.url + "Dropdown/Surgeon" ); 
+  }
+
+  public getAntibiotic()
+  {
+    return this.http.get<any>(this.url + "Dropdown/Antibiotic" ); 
+  }
+  
 }

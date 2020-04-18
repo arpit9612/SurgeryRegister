@@ -31,21 +31,21 @@
                                             <mat-form-field>
                                                     <mat-label>Surgeon</mat-label>
                                                     <mat-select  formControlName="surgeon">
-                                                            <mat-option *ngFor="let surgeon of surgeons" [value]="surgeon.id" >
-                                                            {{surgeon.viewValue}}
+                                                            <mat-option *ngFor="let surgeon of surgeons$ | async" [value]="surgeon.SurgeonId" >
+                                                            {{surgeon.SurgeonName}}
                                                             </mat-option>
                                                     </mat-select>
                                             </mat-form-field>
                                             <mat-form-field>
                                                     <mat-label>Surgery Site</mat-label>
-                                                    <mat-select  ngModel formControlName="surgerysite">
-                                                            <mat-option *ngFor="let site of sites" [value]="site.id" >
-                                                            {{site.viewValue}}
+                                                    <mat-select  ngModel formControlName="surgerySite">
+                                                            <mat-option *ngFor="let site of sites$ | async" [value]="site.SurgerySiteId" >
+                                                            {{site.SurgerySite}}
                                                             </mat-option>
                                                     </mat-select>
                                             </mat-form-field>
                                             <mat-form-field>
-                                                    <input  type="number" placeholder="Mins In Anesthesia"  formControlName="anesthesia" matInput>
+                                                    <input  type="number" placeholder="Mins In Anesthesia"  formControlName="anesthesiaMinutes" matInput>
                                             </mat-form-field>
             
                                     </div>
@@ -69,19 +69,19 @@
                                 <div fxLayout="row wrap" fxLayoutGap="100px" fxLayoutAlign="center center">
                                     <mat-form-field>
                                             <mat-label>Date of Death</mat-label>
-                                            <input matInput [matDatepicker]="picker2"  formControlName="deathdate">
+                                            <input matInput [matDatepicker]="picker2"  formControlName="deathDate">
                                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
             
                                     <mat-form-field>
-                                            <input  type="text" placeholder="Death Comment"  formControlName="deathcomment" matInput>                        
+                                            <input  type="text" placeholder="Death Comment"  formControlName="deathComment" matInput>                        
                                     </mat-form-field>
             
                                     <mat-form-field>
                                             <mat-label>Antibiotics Given?</mat-label>
-                                            <mat-select  formControlName="antibiotics">
-                                                    <mat-option *ngFor="let drug of drugs" [value]="drug.id">
+                                            <mat-select  formControlName="antibioticsGiven">
+                                                    <mat-option *ngFor="let drug of drugs$ | async" [value]="drug.id">
                                                     {{drug.viewValue}}
                                                     </mat-option>
                                             </mat-select>
