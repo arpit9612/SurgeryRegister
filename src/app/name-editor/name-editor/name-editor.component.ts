@@ -5,11 +5,21 @@ import { NgForOf } from '@angular/common';
 import { DropdownService } from "../../dropdown.service";
 import { SurgeryService } from "../../surgery.service";
 import { Observable } from 'rxjs';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { validateBasis } from '@angular/flex-layout';
 interface surgeon {
   SurgeonId: string;
   SurgeonName: string;
 }
 
+interface surgeryId{
+  SurgeryId: BigInteger;
+}
+
+interface SurgeryType {
+  SurgeryTypeId : string;
+  SurgeryType : string;
+}
 
 
 interface surgerySite{
@@ -18,10 +28,16 @@ interface surgerySite{
   SurgerySite: string;
 }
 
-interface antibiotic{
-  id: string;
-  viewValue: string;
+interface SurgeryById{
+  surgeryId: number;
 }
+
+interface antibiotic{
+  
+  Antibiotics: string;
+}
+
+
 
 @Component({
   selector: 'app-name-editor',
@@ -29,33 +45,35 @@ interface antibiotic{
   styleUrls: ['./name-editor.component.scss']
 })
 export class NameEditorComponent implements OnInit{
-  selectable = true;
  
   constructor(private fb : FormBuilder , private _dropdownservice : DropdownService, private surgeryService : SurgeryService){  }
 
   SurgeryForm = this.fb.group({
-    surgeryId : [],
-    tagnumber :[''],
-    emergencynumber:[],
-    animaltype:[''],
-    surgerydate:[''],
-    surgeon:[],
-    surgerySite:[],
-    anesthesiaMinutes:[],
-    surgeryType:[],
-    deathDate:[''],
-    deathComment:[''],
-    antibioticsGiven:[],
-    comment:['']
-
-
-
+    SurgeryId :[],
+    TagNumber :['',Validators.required],
+    EmergencyNumber:[,Validators.required],
+    AnimalType:['',Validators.required],
+    SurgeryDate:['',Validators.required],
+    SurgeonId:[,Validators.required],
+    SurgerySiteId:[,Validators.required],
+    AnesthesiaMinutes:[],
+    SurgeryTypeId:[,Validators.required],
+    Died:[''],
+    DeathComment:[''],
+    AntibioticsGiven:[,Validators.required],
+    Comment:[''],
+    SearchSurgeryId:['']
   });
 
 
-  surgeryType : string;
-    types: string[] = ['Spay','Neuter','Tumor Removal','Ceasarian Section','Leg Amputation','Tail Amputation','Haematoma','Wound Repair','Bone Fracture Repair','Eye Surgery','Jaw Repair','Hernia Repair','Exploratory Surgery Abdominal'];
 
+
+
+  surgeryId : number;  
+  types$: Observable<SurgeryType[]> ;
+
+  surgeriesById : Observable<SurgeryById[]>;
+  
   surgeons$: Observable<surgeon[]> ;
 
   sites$ : Observable<surgerySite[]>;
@@ -67,6 +85,9 @@ export class NameEditorComponent implements OnInit{
     this.sites$ = this._dropdownservice.getSurgerySite();
     this.surgeons$ = this._dropdownservice.getSurgeon();
     this.drugs$ = this._dropdownservice.getAntibiotic();
+    this.types$ = this._dropdownservice.getSurgeryType();
+    
+    
   }
 
 
@@ -77,6 +98,21 @@ export class NameEditorComponent implements OnInit{
     );
 
   }
+
+  Load()
+  {
+    this.surgeryService.getSurgeryDetail(this.SurgeryForm.get("SearchSurgeryId").value).subscribe(response =>
+      this.SurgeryForm.patchValue(response[0])
+      // console.log(response)
+    );
+  }
+    // .subscribe(
+    //   response => console.log('Success!',response)
+    // );
+
+   
+    // console.log(this.SurgeryForm.get("surgeryId").value);
+
 
  
  

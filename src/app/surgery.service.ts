@@ -10,6 +10,20 @@ export class SurgeryService {
 
   SurgeryRegisterSubmit(surgerydata)
   {
-    return this.http.post<any>(this.url + "Surgery/SurgeryRegisterSubmit" , surgerydata);
+    console.log("SurgeryRegisterSubmit");
+    if (surgerydata.surgeryId){ 
+      return this.http.put<any>(this.url + "Surgery" , surgerydata);
+    }
+    else{
+      return this.http.post<any>(this.url + "Surgery" , surgerydata);
+    }
+  }
+
+  public getSurgeryDetail(surgeryId){
+    
+
+    return this.http.get<any>(this.url + "Surgery?surgeryId=" + surgeryId  );
+    
+
   }
 }

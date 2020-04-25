@@ -8,13 +8,13 @@
                             <legend class="legend">Animal Details</legend>
                             <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="start end">
                                     <mat-form-field>
-                                            <input  type="text" placeholder="Tag Number"  formControlName="tagnumber"  matInput>                        
+                                            <input  type="text" placeholder="Tag Number"  formControlName="TagNumber" required matInput>                        
                                     </mat-form-field>
                                     <mat-form-field>
-                                            <input  type="number" placeholder="Emergency Number"  formControlName="emergencynumber"  matInput>                        
+                                            <input  type="number" placeholder="Emergency Number"  formControlName="EmergencyNumber" required matInput>                        
                                     </mat-form-field>
                                     <mat-form-field>
-                                            <input  type="text" placeholder="Animal Type"  formControlName="animaltype" matInput>                        
+                                            <input  type="text" placeholder="Animal Type"  formControlName="AnimalType" required matInput>                        
                                     </mat-form-field>
                             </div>
                         </fieldset>
@@ -24,13 +24,13 @@
                                     <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center center">
                                             <mat-form-field>
                                                     <mat-label>Surgery Date</mat-label>
-                                                    <input matInput [matDatepicker]="picker"  formControlName="surgerydate">
+                                                    <input matInput [matDatepicker]="picker"  formControlName="SurgeryDate" required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker></mat-datepicker>
                                             </mat-form-field>
                                             <mat-form-field>
                                                     <mat-label>Surgeon</mat-label>
-                                                    <mat-select  formControlName="surgeon">
+                                                    <mat-select  formControlName="SurgeonId" required>
                                                             <mat-option *ngFor="let surgeon of surgeons$ | async" [value]="surgeon.SurgeonId" >
                                                             {{surgeon.SurgeonName}}
                                                             </mat-option>
@@ -38,28 +38,35 @@
                                             </mat-form-field>
                                             <mat-form-field>
                                                     <mat-label>Surgery Site</mat-label>
-                                                    <mat-select  ngModel formControlName="surgerySite">
+                                                    <mat-select  formControlName="SurgerySiteId" required>
                                                             <mat-option *ngFor="let site of sites$ | async" [value]="site.SurgerySiteId" >
                                                             {{site.SurgerySite}}
                                                             </mat-option>
                                                     </mat-select>
                                             </mat-form-field>
                                             <mat-form-field>
-                                                    <input  type="number" placeholder="Mins In Anesthesia"  formControlName="anesthesiaMinutes" matInput>
+                                                    <input  type="number" placeholder="Mins In Anesthesia"  formControlName="AnesthesiaMinutes" matInput>
                                             </mat-form-field>
             
                                     </div>
                         </fieldset>
                 </div>
                 <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center center">
-                    <fieldset class="form-sub-group">
+                    <fieldset class="form-sub-group" >
                         <legend class="legend">Surgery Type</legend>
-                            
-                        <mat-chip-list #typeList aria-label="Surgery selection">
-                                <mat-chip *ngFor="let type of types" [value]="type"   style="font-family: sans-serif;">
-                                {{type}}        
-                                </mat-chip>
-                        </mat-chip-list>
+                        <mat-form-field>
+                                <mat-label>Select Surgery Type</mat-label>
+                                
+                                <mat-select  formControlName="SurgeryTypeId" required>
+                                        <mat-option *ngFor="let type of types$ | async" [value]="type.SurgeryTypeId" >
+                                        {{type.SurgeryType}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+
+
+
+                        
                             
                     </fieldset>
             
@@ -69,38 +76,61 @@
                                 <div fxLayout="row wrap" fxLayoutGap="100px" fxLayoutAlign="center center">
                                     <mat-form-field>
                                             <mat-label>Date of Death</mat-label>
-                                            <input matInput [matDatepicker]="picker2"  formControlName="deathDate">
+                                            <input matInput [matDatepicker]="picker2"  formControlName="Died">
                                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
             
                                     <mat-form-field>
-                                            <input  type="text" placeholder="Death Comment"  formControlName="deathComment" matInput>                        
+                                            <input  type="text" placeholder="Death Comment"  formControlName="DeathComment" matInput>                        
                                     </mat-form-field>
             
                                     <mat-form-field>
                                             <mat-label>Antibiotics Given?</mat-label>
-                                            <mat-select  formControlName="antibioticsGiven">
+                                            <mat-select  formControlName="AntibioticsGiven" required>
                                                     <mat-option *ngFor="let drug of drugs$ | async" [value]="drug.id">
-                                                    {{drug.viewValue}}
+                                                    {{drug.Antibiotics}}
                                                     </mat-option>
                                             </mat-select>
                                     </mat-form-field>
             
                                     <mat-form-field>
-                                            <input  type="text" placeholder="comment"  formControlName="comment" matInput>
+                                            <input  type="text" placeholder="comment"  formControlName="Comment" matInput>
                                     </mat-form-field>
                                     
             
                                 </div>
                     </fieldset>
                 </div>
+               
+                
+
+                
                 <br>
                 <br>
                 <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center center"> 
-                   <input type="submit" value="Submit" class="mat-button">
-                    
-                    <button style="margin-left:120px ;" class="mat-button" mat-button>Reset</button>
+                        <input type="submit" value="Submit" [disabled]="!SurgeryForm.valid" class="mat-button">
+                         
+                         <button style="margin-left:120px ;" class="mat-button" mat-button>Reset</button>
                 </div>
-            </fieldset>
+
+                <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="center center"> 
+                        <mat-form-field>
+                                <input  type="text" placeholder="Surgery Id"  formControlName="SearchSurgeryId" matInput>                        
+                        </mat-form-field> 
+                        
+                        <button type = "button" (click) = "Load()" class="mat-button" mat-button>Load</button>
+                </div>
+
+
+
+                
+        </fieldset>
+        <!-- <fieldset class="form-sub-group">
+               
+        </fieldset> -->
+            
 </form>  
+
+
+      

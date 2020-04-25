@@ -25,5 +25,13 @@ export class DropdownService {
   {
     return this.http.get<any>(this.url + "Dropdown/Antibiotic" ); 
   }
-  
+
+  public getSurgeryType()
+  {
+    return this.http.get<any>(this.url + "Dropdown/SurgeryType");
+  }
+
+    
+
+ 
 }
